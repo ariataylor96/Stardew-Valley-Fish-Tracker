@@ -14,9 +14,10 @@ class FishRow extends React.Component {
   renderFriendly = (obj, val) => {
     if (Array.isArray(val)) {
       return val.map((ival, idx) => (
-        <Typography key={idx}>
+        <React.Fragment key={idx}>
           {this.renderFriendly(obj, ival)}
-        </Typography>
+          <br/>
+        </React.Fragment>
       ));
     }
 
