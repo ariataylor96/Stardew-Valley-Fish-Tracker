@@ -11,7 +11,7 @@ import FieldedObject from './fieldedObject';
 //
 // In the interest of that, I'm expressing times as "hours past 6am"
 //   to make the math much easier to express.
-export class Time extends FieldedObject {
+export default class Time extends FieldedObject {
   static fields = [
     'start',
     'end',
@@ -44,6 +44,10 @@ export class Time extends FieldedObject {
   };
 
   get friendlyText() {
-    return `${this.format(this.start)} - ${this.format(this.end)}}`;
+    if (this.start === 0 && this.end === 20) {
+      return 'Any';
+    }
+
+    return `${this.format(this.start)} - ${this.format(this.end)}`;
   }
 }

@@ -222,7 +222,7 @@ const fishCollection = [
   new Fish({
     name: 'Tiger Trout',
     price: new Price({base: 150, silver: 187, gold: 225}),
-    location: [Locations.RIVER_TOWN. Locations.RIVER_FOREST],
+    location: [Locations.RIVER_TOWN, Locations.RIVER_FOREST],
     time: new Time({start: 0, end: 13}),
     season: [Seasons.FALL, Seasons.WINTER],
   }),

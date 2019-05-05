@@ -6,6 +6,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import Nav from './components/ui/Nav';
 import Dashboard from './components/pages/Dashboard';
+import Urls from './Urls';
 
 const theme = createMuiTheme({
   palette: {
@@ -22,7 +23,9 @@ const App = () => (
 
     <Router>
       <Nav />
+
       <Switch>
+        <Route exact path={Urls.dashboard} component={Dashboard} />
       </Switch>
     </Router>
   </MuiThemeProvider>
