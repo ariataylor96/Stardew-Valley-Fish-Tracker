@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import Spacer from '../ui/Spacer';
-
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import TextField from '@material-ui/core/TextField';
 
 import FishTable from '../ui/FishTable';
 import fishData from '../../data';
+import Spacer from '../ui/Spacer';
 
 import { Locations, Seasons, Weather } from '../../data/enums';
 
@@ -57,6 +57,7 @@ class Dashboard extends React.Component {
     location: Locations.ANY,
     weather: Weather.ANY,
     season: Seasons.ANY,
+    name: '',
   };
 
   setFisher = fisher => this.setState({ fisher, angler: false });
@@ -118,6 +119,20 @@ class Dashboard extends React.Component {
     );
   };
 
+  renderSearch = () => {
+    const { name } = this.state;
+    
+    return (
+      <TextField 
+        variant="outlined"
+        placeholder="Search by fish Name"
+        value={name}
+        onChange={e => this.setState({name: e.target.value})}
+        fullWidth
+      />
+    );
+  };
+
   render() {
     const { classes } = this.props;
 
@@ -136,6 +151,10 @@ class Dashboard extends React.Component {
         <Spacer v={32} />
 
         {this.renderControls()}
+
+        <Spacer v={32} />
+
+        {this.renderSearch()}
 
         <Spacer v={32} />
 

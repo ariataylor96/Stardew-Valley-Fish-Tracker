@@ -28,8 +28,11 @@ class FishTable extends React.Component {
 
   filterWithEnum = enumerator => (selected, test) => enumerator.matches(selected, test);
 
+  filterWithName = (selected, test) => test.toLowerCase().includes(selected.toLowerCase());
+
   get allFilters() {
     return [
+      [this.filterWithName, 'name'],
       [this.filterWithEnum(Locations), 'location'],
       [this.filterWithEnum(Seasons), 'season'],
       [this.filterWithEnum(Weather), 'weather'],
