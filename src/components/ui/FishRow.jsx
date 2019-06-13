@@ -8,6 +8,7 @@ class FishRow extends React.Component {
   static propTypes = {
     fish: PropTypes.shape({}).isRequired,
     mkCell: PropTypes.func.isRequired,
+    professionMultiplier: PropTypes.number.isRequired,
   };
 
   renderFriendly = (obj, val) => {
@@ -24,13 +25,13 @@ class FishRow extends React.Component {
   };
 
   render() {
-    const { fish, mkCell } = this.props;
+    const { fish, mkCell, professionMultiplier } = this.props;
     const { renderFriendly } = this;
 
     return (
       <TableRow>
         {mkCell(fish.name)}
-        {mkCell(fish.price.base)}
+        {mkCell(Math.floor(fish.price.base * professionMultiplier))}
         {mkCell(renderFriendly(Locations, fish.location))}
         {mkCell(fish.time.friendlyText)}
         {mkCell(renderFriendly(Seasons, fish.season))}
