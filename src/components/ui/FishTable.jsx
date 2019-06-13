@@ -18,6 +18,7 @@ class FishTable extends React.Component {
     location: PropTypes.string,
     season: PropTypes.string,
     weather: PropTypes.string,
+    name: PropTypes.string,
   };
 
   static defaultProps = {
@@ -29,6 +30,17 @@ class FishTable extends React.Component {
   filterWithEnum = enumerator => (selected, test) => enumerator.matches(selected, test);
 
   filterWithName = (selected, test) => test.toLowerCase().includes(selected.toLowerCase());
+
+  get profMulti() {
+    const { fisher, angler } = this.props;
+
+    if (fisher) {
+      return 1.25;
+    } else if (angler) {
+      return 1.5;
+    }
+    return 1;
+  }
 
   get allFilters() {
     return [
@@ -58,7 +70,7 @@ class FishTable extends React.Component {
   );
 
   render() {
-    const { filteredData: fishCollection, mkCell } = this;
+    const { filteredData: fishCollection, profMulti, mkCell } = this;
 
     return (
       <Table>
@@ -75,7 +87,7 @@ class FishTable extends React.Component {
 
         <TableBody>
           {fishCollection.map((fish, idx) => (
-            <FishRow fish={fish} key={idx} mkCell={mkCell}/>
+            <FishRow fish={fish} key={idx} mkCell={mkCell} profMulti={profMulti} />
           ))}
         </TableBody>
       </Table>

@@ -125,7 +125,7 @@ class Dashboard extends React.Component {
     return (
       <TextField 
         variant="outlined"
-        placeholder="Search by fish Name"
+        placeholder="Search by Fish Name"
         value={name}
         onChange={e => this.setState({name: e.target.value})}
         fullWidth
