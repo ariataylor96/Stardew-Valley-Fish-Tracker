@@ -31,7 +31,7 @@ class FishTable extends React.Component {
 
   filterWithName = (selected, test) => test.toLowerCase().includes(selected.toLowerCase());
 
-  get profMulti() {
+  get professionMultiplier() {
     const { fisher, angler } = this.props;
 
     if (fisher) {
@@ -70,7 +70,7 @@ class FishTable extends React.Component {
   );
 
   render() {
-    const { filteredData: fishCollection, profMulti, mkCell } = this;
+    const { filteredData: fishCollection, professionMultiplier, mkCell } = this;
 
     return (
       <Table>
@@ -87,7 +87,7 @@ class FishTable extends React.Component {
 
         <TableBody>
           {fishCollection.map((fish, idx) => (
-            <FishRow fish={fish} key={idx} mkCell={mkCell} profMulti={profMulti} />
+            <FishRow fish={fish} key={idx} mkCell={mkCell} professionMultiplier={professionMultiplier} />
           ))}
         </TableBody>
       </Table>
