@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import TableRow from '@material-ui/core/TableRow';
 
 import { Locations, Seasons, Weather } from '../../data/enums';
+import PriceDisplay from './PriceDisplay';
 
 class FishRow extends React.Component {
   static propTypes = {
@@ -31,7 +32,7 @@ class FishRow extends React.Component {
     return (
       <TableRow>
         {mkCell(fish.name)}
-        {mkCell(Math.floor(fish.price.base * professionMultiplier))}
+        {mkCell(<PriceDisplay fish={fish} professionMultiplier={professionMultiplier} />)}
         {mkCell(renderFriendly(Locations, fish.location))}
         {mkCell(fish.time.friendlyText)}
         {mkCell(renderFriendly(Seasons, fish.season))}
