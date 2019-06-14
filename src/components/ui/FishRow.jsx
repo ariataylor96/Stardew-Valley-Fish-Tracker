@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import TableRow from '@material-ui/core/TableRow';
 
-import { Locations, Seasons, Weather } from '../../data/enums';
 import PriceDisplay from './PriceDisplay';
+import { Locations, Seasons, Weather } from '../../data/enums';
 
 class FishRow extends React.Component {
   static propTypes = {

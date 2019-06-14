@@ -7,15 +7,22 @@ class PriceDisplay extends React.Component {
         professionMultiplier: PropTypes.number.isRequired,
     };
 
+    profMult = (price) => {
+        return (
+            Math.floor(price * this.props.professionMultiplier)
+        )
+    };
+    
     render() {
-        const { professionMultiplier, fish: {price} } = this.props;
+        const { fish: {price} } = this.props;
         const { base, silver, gold } = price;
+        const { profMult } = this;
 
         return (
             <React.Fragment>
-                <div>{Math.floor(base * professionMultiplier)}</div>
-                <div style={{color: '#a2c8ef'}}>{Math.floor(silver * professionMultiplier)}</div>
-                <div style={{color: '#f4ce50'}}>{Math.floor(gold * professionMultiplier)}</div>
+                <div>{profMult(base)}</div>
+                <div style={{color: '#a2c8ef'}}>{profMult(silver)}</div>
+                <div style={{color: '#f4ce50'}}>{profMult(gold)}</div>
             </React.Fragment>
         )
     }
