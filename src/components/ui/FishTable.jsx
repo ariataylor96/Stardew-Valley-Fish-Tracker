@@ -34,7 +34,7 @@ class FishTable extends React.Component {
   filterWithEnum = enumerator => (selected, test) => enumerator.matches(selected, test);
 
   filterWithName = (selected, test) => test.toLowerCase().includes(selected.toLowerCase());
-  
+
   get professionMultiplier() {
     const { fisher, angler } = this.props;
 
@@ -57,6 +57,7 @@ class FishTable extends React.Component {
 
   get filteredData() {
     const { fish, descendingSortOrder } = this.props;
+    const sortFn = (a, b) => a.price.base - b.price.base;
     let data = fish.slice();
 
     // For every filter, check if it matches the supplied key in sequence
@@ -64,7 +65,7 @@ class FishTable extends React.Component {
       data = data.filter(fish => filter(this.props[key], fish[key]));
     }
 
-    return data.sort((a, b) => descendingSortOrder ? b.price.base - a.price.base : a.price.base - b.price.base);
+    return data.sort((a, b) => descendingSortOrder ? sortFn(b, a) : sortFn(a, b));
   }
 
   mkCell = (data, right) => (
