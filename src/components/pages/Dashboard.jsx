@@ -58,6 +58,7 @@ class Dashboard extends React.Component {
     weather: Weather.ANY,
     season: Seasons.ANY,
     name: '',
+    descendingSortOrder: true,
   };
 
   setFisher = fisher => this.setState({ fisher, angler: false });
@@ -133,6 +134,8 @@ class Dashboard extends React.Component {
     );
   };
 
+  toggleSortOrder = () => this.setState({descendingSortOrder: !this.state.descendingSortOrder});
+
   render() {
     const { classes } = this.props;
 
@@ -158,7 +161,7 @@ class Dashboard extends React.Component {
 
         <Spacer v={32} />
 
-        <FishTable fish={fishData} {...this.state} />
+        <FishTable fish={fishData} {...this.state} toggleSortOrder={this.toggleSortOrder} />
       </div>
     );
   }
