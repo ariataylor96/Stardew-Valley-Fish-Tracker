@@ -13,18 +13,22 @@ import { Locations, Seasons, Weather } from '../../data/enums';
 class FishTable extends React.Component {
   static propTypes = {
     fish: PropTypes.arrayOf(PropTypes.object).isRequired,
-    fisher: PropTypes.bool,
-    angler: PropTypes.bool,
+    toggleSortOrder: PropTypes.func.isRequired,
+    fisher: PropTypes.bool.isRequired,
+    angler: PropTypes.bool.isRequired,
     location: PropTypes.string,
     season: PropTypes.string,
     weather: PropTypes.string,
     name: PropTypes.string,
+    descendingSortOrder: PropTypes.bool,
   };
 
   static defaultProps = {
     location: Locations.ANY,
     season: Seasons.ANY,
     weather: Weather.ANY,
+    name: '',
+    descendingSortOrder: true,
   };
 
   filterWithEnum = enumerator => (selected, test) => enumerator.matches(selected, test);
@@ -52,7 +56,8 @@ class FishTable extends React.Component {
   }
 
   get filteredData() {
-    const { fish } = this.props;
+    const { fish, descendingSortOrder } = this.props;
+    const sortFn = (a, b) => a.price.base - b.price.base;
     let data = fish.slice();
 
     // For every filter, check if it matches the supplied key in sequence
@@ -60,16 +65,17 @@ class FishTable extends React.Component {
       data = data.filter(fish => filter(this.props[key], fish[key]));
     }
 
-    return data.sort((a, b) => b.price.base - a.price.base);
+    return data.sort((a, b) => descendingSortOrder ? sortFn(b, a) : sortFn(a, b));
   }
 
   mkCell = (data, right) => (
-    <TableCell align={right? 'right' : 'inherit'}>
+    <TableCell align={right ? 'right' : 'inherit'}>
       {data}
     </TableCell>
   );
 
   render() {
+    const { toggleSortOrder } = this.props;
     const { filteredData: fishCollection, professionMultiplier, mkCell } = this;
 
     return (
@@ -77,7 +83,9 @@ class FishTable extends React.Component {
         <TableHead>
           <TableRow>
             {mkCell('Name')}
-            {mkCell('Prices')}
+            <TableCell align="inherit" onClick={toggleSortOrder}>
+              Prices
+            </TableCell>
             {mkCell('Location')}
             {mkCell('Time')}
             {mkCell('Season')}
