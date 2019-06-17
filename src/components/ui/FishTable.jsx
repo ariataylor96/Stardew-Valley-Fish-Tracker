@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
 import FishRow from './FishRow';
+import Cell from './Cell';
 
 import { Locations, Seasons, Weather } from '../../data/enums';
 
@@ -68,34 +68,26 @@ class FishTable extends React.Component {
     return data.sort((a, b) => descendingSortOrder ? sortFn(b, a) : sortFn(a, b));
   }
 
-  mkCell = (data, right) => (
-    <TableCell align={right ? 'right' : 'inherit'}>
-      {data}
-    </TableCell>
-  );
-
   render() {
     const { toggleSortOrder } = this.props;
-    const { filteredData: fishCollection, professionMultiplier, mkCell } = this;
+    const { filteredData: fishCollection, professionMultiplier } = this;
 
     return (
       <Table>
         <TableHead>
           <TableRow>
-            {mkCell('Name')}
-            <TableCell align="inherit" onClick={toggleSortOrder}>
-              Prices
-            </TableCell>
-            {mkCell('Location')}
-            {mkCell('Time')}
-            {mkCell('Season')}
-            {mkCell('Weather')}
+            <Cell>Name</Cell>
+            <Cell onClick={toggleSortOrder}>Prices</Cell>
+            <Cell>Location</Cell>
+            <Cell>Time</Cell>
+            <Cell>Season</Cell>
+            <Cell>Weather</Cell>
           </TableRow>
         </TableHead>
 
         <TableBody>
           {fishCollection.map((fish, idx) => (
-            <FishRow fish={fish} key={idx} mkCell={mkCell} professionMultiplier={professionMultiplier} />
+            <FishRow fish={fish} key={idx} professionMultiplier={professionMultiplier} />
           ))}
         </TableBody>
       </Table>
