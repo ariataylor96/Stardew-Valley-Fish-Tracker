@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import TableRow from '@material-ui/core/TableRow';
 
 import PriceDisplay from './PriceDisplay';
+import Cell from './Cell';
+
 import { Locations, Seasons, Weather } from '../../data/enums';
 
 class FishRow extends React.Component {
   static propTypes = {
     fish: PropTypes.shape({}).isRequired,
-    mkCell: PropTypes.func.isRequired,
     professionMultiplier: PropTypes.number.isRequired,
   };
 
@@ -26,17 +27,19 @@ class FishRow extends React.Component {
   };
 
   render() {
-    const { fish, mkCell, professionMultiplier } = this.props;
+    const { fish, professionMultiplier } = this.props;
     const { renderFriendly } = this;
 
     return (
       <TableRow>
-        {mkCell(fish.name)}
-        {mkCell(<PriceDisplay fish={fish} professionMultiplier={professionMultiplier} />)}
-        {mkCell(renderFriendly(Locations, fish.location))}
-        {mkCell(fish.time.friendlyText)}
-        {mkCell(renderFriendly(Seasons, fish.season))}
-        {mkCell(renderFriendly(Weather, fish.weather))}
+        <Cell>{fish.name}</Cell>
+        <Cell>
+          <PriceDisplay fish={fish} professionMultiplier={professionMultiplier} />
+        </Cell>
+        <Cell>{renderFriendly(Locations, fish.location)}</Cell>
+        <Cell>{fish.time.friendlyText}</Cell>
+        <Cell>{renderFriendly(Seasons, fish.season)}</Cell>
+        <Cell>{renderFriendly(Weather, fish.weather)}</Cell>
       </TableRow>
     );
   }
